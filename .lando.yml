@@ -1,0 +1,38 @@
+name: conflux-video-processing
+recipe: lemp
+config:
+  webroot: web
+  # https://docs.lando.dev/config/services.html
+  build_as_root:
+    - echo "Updating PHP-FPM settings ..."
+    - sed -i 's/pm.max_children = 5/pm.max_children = 128/g' /usr/local/etc/php-fpm.d/www.conf
+    - sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 32/g' /usr/local/etc/php-fpm.d/www.conf
+    - sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 64/g' /usr/local/etc/php-fpm.d/www.conf
+    - sed -i 's/pm.start_servers = 2/pm.start_servers = 32/g' /usr/local/etc/php-fpm.d/www.conf
+    - sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf
+
+services:
+  appserver:
+    type: php:7.4
+    build:
+      - ""
+    build_as_root:
+      # - "apt install ffmpeg"
+      # - 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
+      # - 'unzip awscliv2.zip'
+      # - 'sudo ./aws/install'
+      # - 'export PATH=$PATH:/usr/local/bin/aws'
+  # https://docs.lando.dev/config/services.html#advanced
+  ffmpeg:
+    type: php:7.4
+    overrides:
+      image: jrottenberg/ffmpeg
+  aws:
+    type: php:7.4
+    overrides:
+      image: amazon/aws-cli
+tooling:
+  ffmpeg:
+    service: ffmpeg
+  aws:
+    service: aws
