@@ -1,28 +1,29 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(-1);
+
 
 $input_name = $_POST['name'];
 $post_form = $_POST['submit'];
 $extension = $_POST['extension'];
+$url = "https://www.dropbox.com/s/y2m1azgp1dptoqn/";
+$part1 = $input_name . "." . $extension . "?dl=1 -o " . $input_name . "." . $extension; 
 
-$prefix = "https://docs.google.com/spreadsheets/d/";
-$suffix = "/edit?usp=sharing";
+$front_clip = "fmpeg -i " . $input_name . ".$extension" . " -ss 0:20:00 -c:v copy -c:a copy" . $input_name . "-clipped" . ".$extension";
 
-//echo exec('wget whomai');
-//https://docs.google.com/spreadsheets/d/1OTYnjEBtmKWuOyRK8Ysch4z-mC54zvByj4JCwy8HDbw/edit?usp=sharing
+$rear_clip = "ffmpeg -i " . $input_name . "-clipped" . "." . $extension . " -ss 0:00:00 -to 0:00:30 -c:v copy -c:a copy " . $input_name . "-clipped" . $extension . " clipped-again" . $extension;
 
-$final = $prefix . $input_name . $suffix . "." . $extension; 
+$clippings = array($front_clip, $rear_clip);
 
-if(isset($post_form) )
-{
-    exec("wget $final");
-    //exec("wget $front");
-    //exec("wget ", $end);
-}
+$final = $url . $part1; 
+exec("wget $final");
+//echo $final;
+echo "<br><br>";
+echo $front_clip;
+echo "<br><br>";
+echo $rear_clip;
+echo "<br><br>";
 
-   
+
+
 ?>
 
 <html>
@@ -37,8 +38,8 @@ if(isset($post_form) )
 </head>
 
 <body>
-    <p>File being downloaded:</p>
-    <p><?php echo $final; ?></p>
+    <p>Video that is downloading:</p>
+    <p><?php echo $final;  ?></p>
 </body>
 
 </html>

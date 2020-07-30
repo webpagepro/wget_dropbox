@@ -13,13 +13,12 @@ error_reporting(-1);
 </head>
 
 <body>
+    <p>Workshop%3A%20Hyper-Realistic%20Multimedia%20for%20Enhanced%20Quality%20of%20Experience</p>
     <form method="post" action="wget.php" name="getDropox">
         <p>Enter video name:
             <input type="text" name="name" value="">
             <select name="extension">
-                <option>select</option> 
                 <option>mp4</option>
-                <option>csv</option>
                 <option>other</option>
             </select>
         </p>
