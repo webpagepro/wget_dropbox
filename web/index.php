@@ -18,13 +18,13 @@ error_reporting(-1);
     <form method="post" action="wget.php" name="getDropox">
         <div>Enter Dropbox Link:</div>
 
-
-        <input type="text" name="download_url" value="" style="width:80%;height:60px;">
-        <!-- select name="extension">
+        <p>
+            <textarea rows="5" name="download_url" value="" style="width:80%;"></textarea>
+            <!-- select name="extension">
                 <option>mp4</option>
                 <option>other</option>
             </!-->
-        </p:>
+        </p>
         <p><input type="submit" name="submit" value="Download" /></p>
     </form>
     <p>&nbsp;</p>
