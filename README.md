@@ -1,6 +1,6 @@
 # wget_dropbox
 
-Install Lando.
+Install Lando
 
 Run lando start on lando.yml file
 
